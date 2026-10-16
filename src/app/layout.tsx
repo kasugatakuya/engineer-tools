@@ -26,6 +26,7 @@ const mono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  verification: { google: "r4vs5K6kyRpFbT2eQ3xlFxlQbUmRrk_8z6irkNv4HmM" },
   title: {
     default: `${SITE_NAME} | engineer-tools`,
     template: `%s | ${SITE_NAME}`,
