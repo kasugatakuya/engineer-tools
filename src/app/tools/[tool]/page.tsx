@@ -11,7 +11,12 @@ export async function generateMetadata({ params }: PageProps<"/tools/[tool]">): 
   const { tool } = await params;
   const meta = TOOL_MAP[tool];
   if (!meta) return {};
-  return { title: meta.name, description: meta.description };
+  return {
+    title: meta.name,
+    description: meta.description,
+    alternates: { canonical: `/tools/${meta.slug}` },
+    openGraph: { title: `${meta.name} | エンジニア道具箱`, description: meta.description, url: `/tools/${meta.slug}`, type: "website" },
+  };
 }
 
 export default async function ToolPage({ params }: PageProps<"/tools/[tool]">) {

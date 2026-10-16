@@ -38,6 +38,8 @@ npm run e2e        # Playwright（ビルドして out/ を配信し、デスク�
 
 初回の E2E 実行前に `npx playwright install chromium` でブラウザを入れてください。
 
+`dev` / `build` の前に `build:worker` が自動で走り、差分計算用の Web Worker を esbuild で `public/diff.worker.js` に束ねます（生成物なので git には含めません）。
+
 ## 公開（ホスティング）
 
 `output: "export"` で `out/` に静的ファイルを書き出すので、サーバーは不要です。
@@ -48,6 +50,17 @@ npm run e2e        # Playwright（ビルドして out/ を配信し、デスク�
 
 各ツールは `/tools/base64` のような独立 URL とタイトル・説明文を持つため、検索から直接たどり着けます。
 
+### サイトマップと公開 URL
+
+`/sitemap.xml` と `/robots.txt` はビルド時に生成されます（`src/app/sitemap.ts`, `src/app/robots.ts`）。
+各ページの canonical URL とあわせて、公開 URL は環境変数で指定してください（`.env.example` 参照）。
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.example npm run build
+```
+
+Vercel や Cloudflare Pages では、プロジェクトの環境変数に `NEXT_PUBLIC_SITE_URL` を設定します。未設定の場合は仮のドメインが入ります。
+
 ## ダークモード
 
 右下（スマホでは右上）のボタンで切り替えられます。`next-themes` で `html` に `dark` クラスを付け、色はすべて `globals.css` の CSS 変数で定義しているため、ライト/ダークの両方を 1 か所で調整できます。
@@ -55,7 +68,8 @@ npm run e2e        # Playwright（ビルドして out/ を配信し、デスク�
 ## 構成
 
 - `src/lib/` … 各ツールの純粋なロジック（UI に依存しない。`__tests__/` に Vitest のテスト）
-- `src/lib/diff.worker.ts` … 大きな入力（合計 2 万文字超）の差分計算を Web Worker で行う
+- `src/lib/diff.worker.ts` … 大きな入力（合計 2 万文字超）の差分計算を Web Worker で行う（esbuild で `public/diff.worker.js` に生成）
+- `src/app/sitemap.ts`, `src/app/robots.ts` … サイトマップと robots.txt（`src/lib/site.ts` の公開 URL を使用）
 - `src/components/tools/` … 各ツールの画面
 - `src/components/ui.tsx` … 共通 UI 部品
 - `src/lib/tools.ts` … ツール一覧（メニュー・トップページ・ルーティングの元データ）

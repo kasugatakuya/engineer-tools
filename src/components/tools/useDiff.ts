@@ -35,7 +35,8 @@ export function useDiff(before: string, after: string, opts: DiffOptions): { res
     if (typeof Worker === "undefined") return;
     const timer = setTimeout(() => {
       if (!workerRef.current) {
-        workerRef.current = new Worker(new URL("../../lib/diff.worker.ts", import.meta.url));
+        // public/diff.worker.js は `npm run build:worker`（dev/build 前に自動実行）で esbuild が生成する
+        workerRef.current = new Worker("/diff.worker.js");
       }
       const worker = workerRef.current;
       const id = ++seq.current;

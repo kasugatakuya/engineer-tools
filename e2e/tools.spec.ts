@@ -19,6 +19,24 @@ test("差分比較: 変更行と変わった語が強調される", async ({ pag
   await expect(page.locator("td", { hasText: /^-$/ }).first()).toBeVisible();
 });
 
+test("差分比較: 大きな入力は Web Worker で計算される", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(String(e)));
+  page.on("console", (m) => {
+    if (m.type() === "error") errors.push(m.text());
+  });
+  await page.goto("/tools/diff");
+  const lines = Array.from({ length: 1500 }, (_, i) => `const value${i} = compute(${i});`);
+  const before = lines.join("\n");
+  const after = [...lines.slice(0, 700), "const inserted = true;", ...lines.slice(700)].join("\n").replace("compute(10)", "compute(99)");
+  await page.getByLabel("変更前").fill(before);
+  await page.getByLabel("変更後").fill(after);
+  await expect(page.getByText("追加 1 行")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByText("変更 1 行")).toBeVisible();
+  await expect(page.getByText("計算中…")).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
 test("Base64: エンコードして結果を入力に移すと元に戻る", async ({ page }) => {
   await page.goto("/tools/base64");
   await expect(page.locator("pre")).toHaveText("44GT44KT44Gr44Gh44Gv44CBSGVsbG8g5LiW55WM77yB");

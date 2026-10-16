@@ -3,6 +3,7 @@ import { Geist_Mono, M_PLUS_Rounded_1c, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Shell } from "@/components/Shell";
+import { SITE_URL } from "@/lib/site";
 import { SITE_NAME } from "@/lib/tools";
 
 const body = Noto_Sans_JP({
@@ -24,6 +25,7 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${SITE_NAME} | engineer-tools`,
     template: `%s | ${SITE_NAME}`,

@@ -144,8 +144,8 @@ export function DiffTool() {
     <div className="space-y-4">
       <Card>
         <div className="grid gap-4 lg:grid-cols-2">
-          <TextArea label="変更前" value={before} onChange={setBefore} rows={12} placeholder="比較元のテキスト" />
-          <TextArea label="変更後" value={after} onChange={setAfter} rows={12} placeholder="比較先のテキスト" />
+          <TextArea label="変更前" aria-label="変更前" value={before} onChange={setBefore} rows={12} placeholder="比較元のテキスト" />
+          <TextArea label="変更後" aria-label="変更後" value={after} onChange={setAfter} rows={12} placeholder="比較先のテキスト" />
         </div>
         <Row className="mt-4">
           <Toggle checked={ignoreWhitespace} onChange={setIgnoreWhitespace}>

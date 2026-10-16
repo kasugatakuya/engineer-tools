@@ -1,3 +1,4 @@
+// esbuild で public/diff.worker.js に束ねられる（package.json の build:worker）
 import { diffLines, type DiffOptions } from "./diff";
 
 export interface DiffRequest {

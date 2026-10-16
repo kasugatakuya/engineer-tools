@@ -9,7 +9,10 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "build:worker": "esbuild src/lib/diff.worker.ts --bundle --minify --format=iife --target=es2020 --outfile=public/diff.worker.js",
+    "predev": "npm run build:worker",
+    "prebuild": "npm run build:worker"
   },
   "dependencies": {
     "next": "16.4.2",
@@ -24,6 +27,7 @@
     "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
     "serve": "^14.2.6",

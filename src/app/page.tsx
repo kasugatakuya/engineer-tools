@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ACCENT_CLASSES, GROUPS, SITE_NAME, TOOLS } from "@/lib/tools";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function Home() {
   return (

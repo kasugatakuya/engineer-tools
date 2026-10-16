@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // esbuild が生成する Worker バンドル
+    "public/diff.worker.js",
   ]),
 ]);
 
