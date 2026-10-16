@@ -59,7 +59,9 @@ npm run e2e        # Playwright（ビルドして out/ を配信し、デスク�
 NEXT_PUBLIC_SITE_URL=https://your-domain.example npm run build
 ```
 
-Vercel や Cloudflare Pages では、プロジェクトの環境変数に `NEXT_PUBLIC_SITE_URL` を設定します。未設定の場合は仮のドメインが入ります。
+Vercel では本番ドメイン（`VERCEL_PROJECT_PRODUCTION_URL`）、Cloudflare Pages では `CF_PAGES_URL` を自動で拾います。
+独自ドメインを使う場合や、それ以外のホスティングでは、環境変数 `NEXT_PUBLIC_SITE_URL` を設定してください。
+どれも無い場合は仮ドメインが入り、ビルド時に警告が出ます。この状態のサイトマップは Google Search Console に登録できません（URL のドメインが一致しないため拒否されます）。
 
 ## ダークモード
 
