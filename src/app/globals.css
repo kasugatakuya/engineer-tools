@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- semantic colors (light) ---- */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --surface: #f7f8fc;
+  --card: #ffffff;
+  --ink: #1f2437;
+  --muted: #6b7286;
+  --line: #e6e9f2;
+  --line-strong: #d4d9e6;
+  --yellow-deep: #b7820a;
+  --diff-del: #ffe3e8;
+  --diff-del-strong: #ffb3c1;
+  --diff-ins: #dcf7ea;
+  --diff-ins-strong: #a7ecc9;
+  --diff-chg: #fff6d6;
+  --shadow-soft: 0 2px 10px rgba(31, 36, 55, 0.06);
+  --shadow-pop: 0 8px 24px rgba(109, 93, 252, 0.16);
+  color-scheme: light;
+}
+
+/* ---- semantic colors (dark) ---- */
+.dark {
+  --background: #0f1117;
+  --surface: #181b25;
+  --card: #141720;
+  --ink: #e8eaf2;
+  --muted: #9aa1b5;
+  --line: #262a38;
+  --line-strong: #363b4e;
+  --yellow-deep: #e9bd4f;
+  --diff-del: #3a1d27;
+  --diff-del-strong: #7c2f48;
+  --diff-ins: #16342a;
+  --diff-ins-strong: #1f6a4b;
+  --diff-chg: #3a3320;
+  --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-pop: 0 8px 24px rgba(109, 93, 252, 0.35);
+  color-scheme: dark;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-pop-yellow-deep: var(--yellow-deep);
+  --color-diff-del: var(--diff-del);
+  --color-diff-del-strong: var(--diff-del-strong);
+  --color-diff-ins: var(--diff-ins);
+  --color-diff-ins-strong: var(--diff-ins-strong);
+  --color-diff-chg: var(--diff-chg);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-pop: var(--shadow-pop);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-brand: #6d5dfc;
+  --color-brand-deep: #5546d6;
+  --color-pop-pink: #ff5f9e;
+  --color-pop-orange: #ff8a3d;
+  --color-pop-yellow: #ffc53d;
+  --color-pop-green: #1fc38a;
+  --color-pop-sky: #2fa8ff;
+  --color-pop-violet: #8b6cff;
+  --color-pop-teal: #14b8a6;
+  --color-pop-red: #f25c6e;
+
+  --font-sans: var(--font-body), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+  --font-display: var(--font-display), "Hiragino Maru Gothic ProN", "Hiragino Sans", system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans Mono CJK JP", monospace;
+  --radius-xl: 1rem;
+}
+
+.dark .text-brand-deep {
+  color: #a79bff;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+textarea,
+input,
+select,
+button {
+  font-family: inherit;
+}
+
+textarea.mono,
+.mono {
+  font-family: var(--font-mono);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+@layer base {
+  mark {
+    background: transparent;
+    color: inherit;
+  }
+}
+
+.dot-grid {
+  background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+.checker {
+  background-image:
+    linear-gradient(45deg, var(--line) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--line) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--line) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--line) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+input[type="range"] {
+  accent-color: var(--color-brand);
 }
